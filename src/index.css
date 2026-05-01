@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Tenor+Sans&display=swap');
+
+:root {
+  /* Zuribari Obsidian & Gold Design System */
+  --brand-bg: #0a0a0a;          /* Deep Obsidian Black */
+  --brand-onyx: #141414;        /* Deep Charcoal / Card Surface */
+  --brand-blush-gold: #e5b59e;  /* Leadership Gold */
+  --brand-silver: #f1f5f9;      /* High-Contrast Silver */
+  --brand-slate-light: #1e293b;
+  
+  /* Glowing Architectural Grid */
+  --grid-line: rgba(229, 181, 158, 0.1);
+  --grid-size: 30px;
+  
+  /* Typography */
+  --font-heading: 'Tenor Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Layout Spacing */
+  --section-padding: clamp(120px, 15vw, 220px);
+  --container-max: 1500px;
+  
+  /* Refined Depth & Cinematic Transitions */
+  --shadow-executive: 0 40px 80px -20px rgba(0, 0, 0, 0.4);
+  --transition-editorial: 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Cinematic Reveal System */
+.reveal-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-text {
+  display: block;
+  animation: revealUp 5s var(--ease-out-expo) infinite;
+}
+
+@keyframes revealUp {
+  0%, 95% { transform: translateY(110%); opacity: 0; }
+  10%, 90% { transform: translateY(0); opacity: 1; }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--brand-bg);
+  /* Refined Gold Grid Pattern */
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  color: var(--brand-blush-gold);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--brand-blush-gold);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 clamp(2rem, 10vw, 12rem);
+}
+
+/* Metadata Utility */
+.meta-refined {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--brand-onyx);
+  color: var(--brand-blush-gold);
+  padding: 12px 24px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  border: 1px solid rgba(229, 181, 158, 0.2);
+}
+
+/* Elite Refined Button - Medium Precision */
+.btn-refined {
+  height: 52px;                 /* Scaled down to Medium */
+  padding: 0 30px;              /* Balanced padding */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;        /* Increased spacing for prestige */
+  font-size: 0.7rem;            /* Finer typography */
+  background: var(--brand-blush-gold);
+  color: var(--brand-onyx);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-editorial);
+  border-radius: 2px;
+}
+
+.btn-refined:hover {
+  background: var(--brand-silver);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.btn-refined.outline {
+  background: transparent;
+  border: 1px solid var(--brand-blush-gold);
+  color: var(--brand-blush-gold);
+}
+
+.btn-refined.outline:hover {
+  background: var(--brand-blush-gold);
+  color: var(--brand-onyx);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--brand-bg); }
+::-webkit-scrollbar-thumb { background: var(--brand-blush-gold); }
+
+@media (max-width: 1024px) {
+  .container { padding: 0 2rem; }
+}

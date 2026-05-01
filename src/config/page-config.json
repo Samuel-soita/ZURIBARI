@@ -1,0 +1,94 @@
+{
+  "brand": {
+    "name": "ZURIBARI ENTERPRISES",
+    "founder": "June Chumbe",
+    "location": "Nairobi, Kenya",
+    "tagline": "Quality Supplies. Reliable Service. Lasting Partnerships.",
+    "mission": "To provide high-quality products and efficient supply solutions that meet the diverse needs of our clients while maintaining professionalism, timeliness, and competitive pricing.",
+    "vision": "To become a leading and trusted general supply partner known for excellence, reliability, and innovation in service delivery.",
+    "values": [
+      { "title": "Integrity", "desc": "We uphold honesty and transparency in all our dealings." },
+      { "title": "Efficiency", "desc": "Ensuring timely and reliable delivery of supplies." },
+      { "title": "Excellence", "desc": "Commitment to providing only the best products and services." },
+      { "title": "Customer Focus", "desc": "Tailoring solutions to meet specific client needs." }
+    ]
+  },
+  "layout": [
+    { "id": "hero", "component": "hero-standard", "props": { "founderCredit": "LEADERSHIP: JUNE CHUMBE", "description": "Zuribari Enterprises is a dynamic and reliable general supply company committed to delivering high-quality products and services to organizations across various industries.", "ctas": [ { "label": "ENQUIRE NOW", "type": "primary", "action": "contact" }, { "label": "OUR SUPPLIES", "type": "secondary", "action": "featured-solutions" } ] } },
+    { "id": "solutions", "component": "solutions-grid", "props": { "title": "Supply Portfolio", "subtitle": "Operational Essentials" } },
+    { "id": "reach", "component": "institutional-reach", "props": {} },
+    { "id": "founder", "component": "about-founder", "props": { "name": "June Chumbe", "role": "DIRECTOR", "summary": "June Chumbe leads Zuribari Enterprises with a vision of excellence and technical precision in procurement and general supply chain logistics." } },
+    { "id": "stories", "component": "customer-stories", "props": { "title": "Institutional Impact", "subtitle": "Partnership Echoes" } },
+    { "id": "cta", "component": "cta-quiz", "props": { "title": "Secure Your Supply Chain", "subtitle": "Direct Corporate Channel" } }
+  ],
+  "market": {
+    "title": "Target Market",
+    "subtitle": "Institutional Reach",
+    "sectors": [
+      "Corporate Organizations",
+      "Government Institutions",
+      "NGOs & Development Agencies",
+      "Educational Institutions",
+      "Hospitality Businesses"
+    ]
+  },
+  "advantages": {
+    "title": "Why Choose Us",
+    "subtitle": "The Zuribari Edge",
+    "pillars": [
+      { "title": "Global Network", "desc": "Strong supplier network ensuring high-quality products." },
+      { "title": "Fiscal Precision", "desc": "Competitive and transparent pricing across all tiers." },
+      { "title": "Agile Logistics", "desc": "Fast and reliable delivery systems." },
+      { "title": "Personalized Service", "desc": "Client-centric approach with dedicated support." },
+      { "title": "Scalable Capacity", "desc": "Ability to handle both small and large-scale supply needs." }
+    ]
+  },
+  "partnerships": [
+    {
+      "org": "Continental Logistics",
+      "content": "Zuribari Enterprises has been a transformative partner in our supply chain, delivering ICT infrastructure with zero downtime.",
+      "author": "David Okello"
+    },
+    {
+      "org": "Nairobi Hospitality Hub",
+      "content": "Their precision in hospitality supplies is unmatched. The quality of industrial cleaning detergents has set a new standard for our facilities.",
+      "author": "Sarah Wanjiku"
+    },
+    {
+      "org": "Global Relief NGO",
+      "content": "Professional, transparent, and incredibly fast. Zuribari handles our large-scale emergency supply needs with institutional rigor.",
+      "author": "James Miller"
+    }
+  ],
+  "services": [
+    {
+      "id": "ict",
+      "title": "ICT & Office Technology",
+      "desc": "High-performance hardware, software solutions, and stationery supplies.",
+      "metrics": ["24hr Support", "Tier 1 Partners"]
+    },
+    {
+      "id": "hospitality",
+      "title": "Hospitality & Catering",
+      "desc": "Bulk food supplies, kitchen equipment, and premium cleaning detergents.",
+      "metrics": ["Daily Fresh", "Grade A Rated"]
+    },
+    {
+      "id": "industrial",
+      "title": "Industrial & Safety Gear",
+      "desc": "Personal Protective Equipment (PPE) and industrial safety solutions.",
+      "metrics": ["ISO Certified", "Rugged Built"]
+    },
+    {
+      "id": "general",
+      "title": "General Office Supplies",
+      "desc": "Comprehensive inventory management for all corporate office essentials.",
+      "metrics": ["Next-Day Delivery", "Full Inventory"]
+    }
+  ],
+  "contacts": {
+    "phone": "+254 712 271 661",
+    "email": "info@zuribari.com",
+    "whatsapp": "254712271661"
+  }
+}
