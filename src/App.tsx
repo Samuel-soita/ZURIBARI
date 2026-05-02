@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DynamicRenderer from './components/DynamicRenderer';
 import FloatingEcosystem from './components/FloatingEcosystem';
 import Footer from './components/Footer';
+import ScrollReveal from './components/ScrollReveal';
+import Magnetic from './components/Magnetic';
 import { Menu, X } from 'lucide-react';
 import { motion, useSpring, useMotionValue, useScroll } from 'framer-motion';
 import logo from './assets/logo.png';
@@ -54,6 +56,7 @@ const InstitutionalParticles = () => {
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -62,21 +65,21 @@ const App: React.FC = () => {
   });
 
   // Architectural Laser Cursor Logic
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
   
   const springConfig = { damping: 25, stiffness: 250 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  const cursorXSpring = useSpring(mouseX, springConfig);
+  const cursorYSpring = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
     window.addEventListener('mousemove', moveCursor);
     return () => window.removeEventListener('mousemove', moveCursor);
-  }, [cursorX, cursorY]);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -101,7 +104,7 @@ const App: React.FC = () => {
       <title>Zuribari Enterprises | General Supply Excellence</title>
 
       {/* Navigation Slot */}
-      <nav className={`refined-nav ${isScrolled ? 'scrolled' : ''}`}>
+      <nav ref={navRef} className={`refined-nav ${isScrolled ? 'scrolled' : ''}`}>
         <motion.div className="scroll-progress-line" style={{ scaleX }} />
         
         <div className="container nav-flex-layout">
@@ -110,18 +113,20 @@ const App: React.FC = () => {
               <img src={logo} alt="Zuribari Logo" className="nav-logo-asset" />
             </div>
             <div className="refined-brand-stack">
-              <span className="brand-primary-text">ZURIBARI ENTERPRISES</span>
+              <ScrollReveal>
+                <span className="brand-primary-text">ZURIBARI ENTERPRISES</span>
+              </ScrollReveal>
               <span className="brand-leadership-tag">GENERAL SUPPLY SOLUTIONS</span>
             </div>
           </div>
           
           <div className={`nav-center-zone ${mobileMenu ? 'active' : ''}`}>
             <ul className="refined-nav-links">
-              <li><a href="#hero" onClick={() => setMobileMenu(false)}>THE PROFILE</a></li>
-              <li><a href="#solutions" onClick={() => setMobileMenu(false)}>SUPPLIES</a></li>
-              <li><a href="#reach" onClick={() => setMobileMenu(false)}>REACH</a></li>
-              <li><a href="#stories" onClick={() => setMobileMenu(false)}>PARTNERSHIPS</a></li>
-              <li><a href="#contact" onClick={() => setMobileMenu(false)}>INQUIRY</a></li>
+              <li><Magnetic><a href="#hero" onClick={() => setMobileMenu(false)}>THE PROFILE</a></Magnetic></li>
+              <li><Magnetic><a href="#solutions" onClick={() => setMobileMenu(false)}>SUPPLIES</a></Magnetic></li>
+              <li><Magnetic><a href="#reach" onClick={() => setMobileMenu(false)}>REACH</a></Magnetic></li>
+              <li><Magnetic><a href="#stories" onClick={() => setMobileMenu(false)}>PARTNERSHIPS</a></Magnetic></li>
+              <li><Magnetic><a href="#contact" onClick={() => setMobileMenu(false)}>INQUIRY</a></Magnetic></li>
             </ul>
           </div>
 
@@ -260,6 +265,7 @@ const App: React.FC = () => {
           font-size: 1.25rem;
           letter-spacing: 0.1em;
           color: var(--brand-blush-gold);
+          display: block;
         }
 
         .brand-leadership-tag {

@@ -1,10 +1,76 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Target, Zap, Users, BarChart, ShieldCheck } from 'lucide-react';
 import pageConfig from '../config/page-config.json';
+import ScrollReveal from '../components/ScrollReveal';
+
+const StylizedMap = ({ activeSector, onHover }: { activeSector: number | null, onHover: (i: number | null) => void }) => {
+  // Simplified World Map Paths (just representation)
+  return (
+    <svg viewBox="0 0 1000 500" className="institutional-map-svg">
+      <path 
+        d="M150,150 Q250,100 350,150 T550,150 T750,150 T900,200" 
+        fill="none" 
+        stroke="rgba(229, 181, 158, 0.1)" 
+        strokeWidth="1" 
+      />
+      {/* Representational continents */}
+      <circle cx="200" cy="200" r="80" fill="rgba(30, 30, 30, 0.5)" />
+      <circle cx="500" cy="250" r="100" fill="rgba(30, 30, 30, 0.5)" />
+      <circle cx="800" cy="180" r="70" fill="rgba(30, 30, 30, 0.5)" />
+      
+      {/* Interactive Nodes */}
+      {[
+        { x: 220, y: 180, label: "Corporate" },
+        { x: 480, y: 230, label: "Government" },
+        { x: 520, y: 280, label: "NGOs" },
+        { x: 810, y: 170, label: "Education" },
+        { x: 780, y: 210, label: "Hospitality" }
+      ].map((node, i) => (
+        <g 
+          key={i} 
+          className={`map-node-group ${activeSector === i ? 'active' : ''}`}
+          onMouseEnter={() => onHover(i)}
+          onMouseLeave={() => onHover(null)}
+        >
+          <motion.circle 
+            cx={node.x} 
+            cy={node.y} 
+            r="6" 
+            className="map-node-core"
+            animate={{ r: activeSector === i ? 10 : 6 }}
+          />
+          <motion.circle 
+            cx={node.x} 
+            cy={node.y} 
+            r="15" 
+            className="map-node-pulse"
+            animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <AnimatePresence>
+            {activeSector === i && (
+              <motion.text
+                x={node.x + 15}
+                y={node.y + 5}
+                className="map-node-label"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 15 }}
+                exit={{ opacity: 0 }}
+              >
+                {node.label}
+              </motion.text>
+            )}
+          </AnimatePresence>
+        </g>
+      ))}
+    </svg>
+  );
+};
 
 const InstitutionalReach: React.FC = () => {
   const { market, advantages } = pageConfig;
+  const [activeSector, setActiveSector] = useState<number | null>(null);
 
   const icons = [Target, Globe, Users, Zap, BarChart];
 
@@ -13,32 +79,48 @@ const InstitutionalReach: React.FC = () => {
       <div className="container">
         {/* Target Market Matrix */}
         <div className="reach-header">
-          <span className="section-label-gold">{market.subtitle}</span>
-          <h2 className="section-title-obsidian">{market.title}</h2>
+          <ScrollReveal>
+            <span className="section-label-gold">{market.subtitle}</span>
+          </ScrollReveal>
+          <ScrollReveal>
+            <h2 className="section-title-obsidian">{market.title}</h2>
+          </ScrollReveal>
         </div>
 
-        <div className="market-sector-grid">
-          {market.sectors.map((sector, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="sector-node"
-            >
-              <div className="sector-icon-wrap">
-                <ShieldCheck size={20} />
-              </div>
-              <span>{sector}</span>
-            </motion.div>
-          ))}
+        <div className="reach-visualization-layout">
+          <div className="market-sector-list">
+            {market.sectors.map((sector, i) => (
+              <motion.div 
+                key={i}
+                onMouseEnter={() => setActiveSector(i)}
+                onMouseLeave={() => setActiveSector(null)}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={`sector-node ${activeSector === i ? 'active' : ''}`}
+              >
+                <div className="sector-icon-wrap">
+                  <ShieldCheck size={20} />
+                </div>
+                <span>{sector}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="map-visual-zone">
+            <StylizedMap activeSector={activeSector} onHover={setActiveSector} />
+          </div>
         </div>
 
         {/* The Zuribari Edge */}
         <div className="reach-header secondary-header">
-          <span className="section-label-gold">{advantages.subtitle}</span>
-          <h2 className="section-title-obsidian">{advantages.title}</h2>
+          <ScrollReveal>
+            <span className="section-label-gold">{advantages.subtitle}</span>
+          </ScrollReveal>
+          <ScrollReveal>
+            <h2 className="section-title-obsidian">{advantages.title}</h2>
+          </ScrollReveal>
         </div>
 
         <div className="advantages-pillar-grid">
@@ -51,8 +133,9 @@ const InstitutionalReach: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="advantage-card"
+                className="advantage-card preserve-3d depth-card"
               >
+                <div className="glint-overlay" />
                 <div className="advantage-icon-box">
                   <Icon size={32} />
                 </div>
@@ -98,10 +181,18 @@ const InstitutionalReach: React.FC = () => {
           font-family: var(--font-heading);
         }
 
-        .market-sector-grid {
+        .reach-visualization-layout {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 20px;
+          grid-template-columns: 1fr 1.5fr;
+          gap: 60px;
+          align-items: center;
+          margin-bottom: 5rem;
+        }
+
+        .market-sector-list {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
         }
 
         .sector-node {
@@ -115,20 +206,52 @@ const InstitutionalReach: React.FC = () => {
           color: var(--brand-silver);
           font-weight: 500;
           transition: var(--transition-editorial);
+          cursor: pointer;
         }
 
-        .sector-node:hover {
+        .sector-node.active, .sector-node:hover {
           background: var(--brand-blush-gold);
           color: var(--brand-onyx);
-          transform: translateY(-5px);
+          transform: translateX(15px);
         }
 
         .sector-icon-wrap {
           color: var(--brand-blush-gold);
         }
 
-        .sector-node:hover .sector-icon-wrap {
+        .sector-node.active .sector-icon-wrap, .sector-node:hover .sector-icon-wrap {
           color: var(--brand-onyx);
+        }
+
+        .map-visual-zone {
+          background: var(--brand-onyx);
+          border-radius: 8px;
+          border: 1px solid rgba(229, 181, 158, 0.05);
+          padding: 40px;
+          position: relative;
+        }
+
+        .institutional-map-svg {
+          width: 100%;
+          height: auto;
+        }
+
+        .map-node-core {
+          fill: var(--brand-blush-gold);
+          cursor: pointer;
+        }
+
+        .map-node-pulse {
+          fill: var(--brand-blush-gold);
+          pointer-events: none;
+        }
+
+        .map-node-label {
+          fill: var(--brand-blush-gold);
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
         }
 
         .advantages-pillar-grid {
@@ -151,7 +274,6 @@ const InstitutionalReach: React.FC = () => {
         }
 
         .advantage-card:hover {
-          transform: translateY(-10px);
           border-color: var(--brand-blush-gold);
           box-shadow: var(--shadow-executive);
         }
@@ -175,29 +297,13 @@ const InstitutionalReach: React.FC = () => {
           font-weight: 300;
         }
 
-        .advantage-card-glint {
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 50%;
-          height: 100%;
-          background: linear-gradient(
-            to right,
-            transparent,
-            rgba(229, 181, 158, 0.05),
-            transparent
-          );
-          transform: skewX(-25deg);
-          transition: 0.8s;
-        }
-
-        .advantage-card:hover .advantage-card-glint {
-          left: 150%;
+        @media (max-width: 1024px) {
+          .reach-visualization-layout { grid-template-columns: 1fr; }
+          .map-visual-zone { display: none; }
         }
 
         @media (max-width: 768px) {
           .advantages-pillar-grid { grid-template-columns: 1fr; }
-          .sector-node { justify-content: center; }
         }
       `}} />
     </section>

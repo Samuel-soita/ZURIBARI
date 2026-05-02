@@ -21,14 +21,7 @@ const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => 
 };
 
 const CinematicHeading = () => {
-  const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setKey(prev => prev + 1);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const [key] = useState(1);
 
   const container: Variants = {
     hidden: { opacity: 0 },

@@ -1,7 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import pageConfig from '../config/page-config.json';
+import ScrollReveal from '../components/ScrollReveal';
+import Magnetic from '../components/Magnetic';
 
 interface Solution {
   id: string;
@@ -17,10 +19,14 @@ interface SolutionsGridProps {
 }
 
 const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solutions }) => {
-  // Hardened Fallback Logic: Pull from central registry if props are missing
   const activeSolutions = solutions || (pageConfig.services as any[]);
   const activeTitle = title || "Supply Portfolio";
   const activeSubtitle = subtitle || "Operational Essentials";
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  useScroll({
+    container: containerRef,
+  });
 
   return (
     <section className="dark-authority-matrix" id="solutions">
@@ -30,24 +36,29 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
             <div className="gold-accent-line" />
             <span>{activeSubtitle}</span>
           </div>
-          <div className="reveal-mask">
-            <h2 className="authority-matrix-title reveal-text">{activeTitle}</h2>
-          </div>
+          <ScrollReveal>
+            <h2 className="authority-matrix-title">{activeTitle}</h2>
+          </ScrollReveal>
           <p className="authority-matrix-desc">Zuribari Enterprises delivers high-capacity supply infrastructure across ICT, Hospitality, and Industrial sectors.</p>
         </div>
 
-        <div className="authority-matrix-grid">
+        <div 
+          ref={containerRef}
+          className="cinematic-scroll-track perspective-container"
+        >
           {activeSolutions?.map((item, index) => {
             const IconComponent = (Icons as any)[item.icon || 'ShieldCheck'] || Icons.Package;
             return (
               <motion.div 
                 key={item.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                className="authority-matrix-card"
+                className="authority-matrix-card preserve-3d depth-card"
+                style={{ minWidth: '450px' }}
               >
+                <div className="glint-overlay" />
                 <div className="matrix-card-top">
                   <span className="matrix-index">/ 0{index + 1}</span>
                   <div className="matrix-icon-box">
@@ -58,10 +69,12 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
                 <h3 className="matrix-card-title">{item.title}</h3>
                 <p className="matrix-card-desc">{item.desc}</p>
                 
-                <a href="#contact" className="matrix-card-action" style={{ textDecoration: 'none' }}>
-                  <span>Procurement Specs</span>
-                  <Icons.ArrowRight size={16} />
-                </a>
+                <Magnetic strength={0.2}>
+                  <a href="#contact" className="matrix-card-action" style={{ textDecoration: 'none' }}>
+                    <span>Procurement Specs</span>
+                    <Icons.ArrowRight size={16} />
+                  </a>
+                </Magnetic>
                 
                 <div className="matrix-card-glow" />
               </motion.div>
@@ -77,7 +90,7 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
         }
 
         .authority-matrix-header {
-          margin-bottom: 140px;
+          margin-bottom: 100px;
           max-width: 850px;
         }
 
@@ -102,6 +115,7 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
         .authority-matrix-title {
           font-size: clamp(3rem, 6vw, 4.5rem);
           margin-bottom: 2.5rem;
+          color: var(--brand-silver);
         }
 
         .authority-matrix-desc {
@@ -111,12 +125,6 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           line-height: 1.7;
           font-weight: 300;
           max-width: 600px;
-        }
-
-        .authority-matrix-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 50px;
         }
 
         .authority-matrix-card {
@@ -129,12 +137,12 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           border: 1px solid rgba(229, 181, 158, 0.1);
           display: flex;
           flex-direction: column;
+          flex-shrink: 0;
         }
 
         .authority-matrix-card:hover {
-          transform: translateY(-15px);
-          box-shadow: var(--shadow-executive);
           border-color: var(--brand-blush-gold);
+          box-shadow: var(--shadow-executive);
         }
 
         .matrix-card-top {
@@ -192,7 +200,6 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
 
         .authority-matrix-card:hover .matrix-card-action {
           opacity: 1;
-          transform: translateX(10px);
         }
 
         .matrix-card-glow {
@@ -205,14 +212,9 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           pointer-events: none;
         }
 
-        @media (max-width: 1300px) {
-          .authority-matrix-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
         @media (max-width: 800px) {
-          .authority-matrix-grid { grid-template-columns: 1fr; }
           .authority-matrix-header { margin-bottom: 80px; }
-          .authority-matrix-card { padding: 60px 35px; }
+          .authority-matrix-card { padding: 60px 35px; min-width: 320px !important; }
         }
       `}} />
     </section>

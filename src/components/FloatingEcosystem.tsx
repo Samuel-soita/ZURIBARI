@@ -8,7 +8,7 @@ const FloatingEcosystem: React.FC = () => {
   const [showCookie, setShowCookie] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowNotification(true), 5000);
+    const timer = setTimeout(() => setShowNotification(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
