@@ -36,14 +36,14 @@ const StylizedMap = ({ activeSector, onHover }: { activeSector: number | null, o
           <motion.circle 
             cx={node.x} 
             cy={node.y} 
-            r="6" 
-            className="map-node-core"
+            initial={{ r: 6 }}
             animate={{ r: activeSector === i ? 10 : 6 }}
+            className="map-node-core"
           />
           <motion.circle 
             cx={node.x} 
             cy={node.y} 
-            r="15" 
+            initial={{ r: 15 }}
             className="map-node-pulse"
             animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
