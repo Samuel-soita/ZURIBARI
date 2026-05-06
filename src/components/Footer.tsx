@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import pageConfig from '../config/page-config.json';
 import logo from '../assets/logo.png';
 
@@ -16,10 +16,7 @@ const Footer: React.FC = () => {
               <h2 className="brand-gold-title">{pageConfig.brand.name}</h2>
             </div>
             <p className="footer-mission-text">{pageConfig.brand.tagline}</p>
-            <div className="footer-socials-grid">
-              <a href="#" aria-label="LinkedIn" className="social-box"><Linkedin size={18} /></a>
-              <a href="#" aria-label="Instagram" className="social-box"><Instagram size={18} /></a>
-            </div>
+
           </div>
 
           <div className="footer-nav-column">
@@ -257,12 +254,18 @@ const Footer: React.FC = () => {
         @media (max-width: 1200px) {
           .footer-matrix { grid-template-columns: 1fr 1fr; }
         }
-
+        
         @media (max-width: 768px) {
-          .footer-matrix { grid-template-columns: 1fr; gap: 5rem; }
-          .footer-legal-bar-refined { flex-direction: column; gap: 2.5rem; text-align: center; }
-          .footer-mission-text { max-width: 100%; }
-          .executive-seal-signature { text-align: center; }
+          .institutional-footer { padding: 80px 0 40px; }
+          .footer-matrix { grid-template-columns: 1fr; gap: 4rem; text-align: center; }
+          .footer-identity { flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+          .footer-logo-wrap { margin: 0 auto; width: 100px; height: 100px; }
+          .footer-mission-text { margin: 0 auto 3rem; }
+          .hub-contact-node { justify-content: center; gap: 1rem; }
+          .footer-legal-bar-refined { flex-direction: column; gap: 2rem; text-align: center; }
+          .legal-link-matrix { flex-direction: column; gap: 1rem; }
+          .node-divider { display: none; }
+          .executive-seal-signature { text-align: center; margin-top: 2rem; }
         }
       `}} />
     </footer>

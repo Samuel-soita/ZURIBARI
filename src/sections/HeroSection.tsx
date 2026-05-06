@@ -21,7 +21,14 @@ const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => 
 };
 
 const CinematicHeading = () => {
-  const [key] = useState(1);
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setKey(prev => prev + 1);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -348,6 +355,17 @@ const HeroSection: React.FC<HeroProps> = ({ founderCredit, description, ctas }) 
           .authority-description { margin: 0 auto 5.5rem; }
           .authority-cta-matrix { justify-content: center; }
           .authority-capability-column { max-width: 550px; margin: 0 auto; }
+        }
+
+        @media (max-width: 768px) {
+          .dark-authority-hero { padding: 120px 0 60px; }
+          .authority-title { font-size: 2.8rem; }
+          .authority-description { font-size: 1.1rem; }
+          .authority-cta-matrix { flex-direction: column; width: 100%; }
+          .obsidian-capability-card { padding: 40px 20px; }
+          .stat-entry .val-gold { font-size: 3rem; }
+          .card-obsidian-header { margin-bottom: 40px; }
+          .obsidian-stats { gap: 30px; }
         }
       `}} />
     </section>

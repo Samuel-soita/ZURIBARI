@@ -300,10 +300,14 @@ const InstitutionalReach: React.FC = () => {
         @media (max-width: 1024px) {
           .reach-visualization-layout { grid-template-columns: 1fr; }
           .map-visual-zone { display: none; }
+          .reach-header { margin-bottom: 3rem; }
+          .reach-header.secondary-header { margin-top: 6rem; }
         }
 
         @media (max-width: 768px) {
           .advantages-pillar-grid { grid-template-columns: 1fr; }
+          .sector-node { padding: 18px 24px; font-size: 0.9rem; }
+          .advantage-card { padding: 30px; }
         }
       `}} />
     </section>

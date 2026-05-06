@@ -148,6 +148,13 @@ const CtaQuiz: React.FC<QuizProps> = ({ variant = 'professional', title = 'Requi
         }
 
         .quiz-result h2 { font-size: 3rem; }
+
+        @media (max-width: 768px) {
+          .quiz-card { padding: 30px 20px; min-height: auto; border-radius: 16px; }
+          .quiz-content h2 { font-size: 1.8rem; }
+          .quiz-actions { flex-direction: column; width: 100%; gap: 1rem; }
+          .quiz-result h2 { font-size: 2.2rem; }
+        }
       `}} />
     </section>
   );

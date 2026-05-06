@@ -183,3 +183,19 @@ h1, h2, h3, h4 {
 @media (max-width: 1024px) {
   .container { padding: 0 2rem; }
 }
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 80px;
+  }
+  
+  .container { padding: 0 1.5rem; }
+  
+  h1 { font-size: 2.5rem !important; }
+  h2 { font-size: 2rem !important; }
+  
+  .btn-refined {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -44,7 +44,7 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
 
         <div 
           ref={containerRef}
-          className="cinematic-scroll-track perspective-container"
+          className="authority-matrix-grid perspective-container"
         >
           {activeSolutions?.map((item, index) => {
             const IconComponent = (Icons as any)[item.icon || 'ShieldCheck'] || Icons.Package;
@@ -56,7 +56,6 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
                 className="authority-matrix-card preserve-3d depth-card"
-                style={{ minWidth: '450px' }}
               >
                 <div className="glint-overlay" />
                 <div className="matrix-card-top">
@@ -127,9 +126,16 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           max-width: 600px;
         }
 
+        .authority-matrix-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+          gap: 30px;
+          padding: 40px 0;
+        }
+
         .authority-matrix-card {
           background: var(--brand-onyx);
-          padding: 80px 50px;
+          padding: 50px 40px;
           border-radius: 4px;
           position: relative;
           overflow: hidden;
@@ -137,7 +143,7 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           border: 1px solid rgba(229, 181, 158, 0.1);
           display: flex;
           flex-direction: column;
-          flex-shrink: 0;
+          height: 100%;
         }
 
         .authority-matrix-card:hover {
@@ -175,7 +181,7 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
           font-size: 1rem;
           line-height: 1.8;
           color: var(--brand-silver);
-          margin-bottom: 5rem;
+          margin-bottom: 2.5rem;
           opacity: 0.6;
           transition: var(--transition-editorial);
         }
@@ -213,8 +219,11 @@ const SolutionsGrid: React.FC<SolutionsGridProps> = ({ title, subtitle, solution
         }
 
         @media (max-width: 800px) {
-          .authority-matrix-header { margin-bottom: 80px; }
-          .authority-matrix-card { padding: 60px 35px; min-width: 320px !important; }
+          .authority-matrix-header { margin-bottom: 60px; text-align: center; }
+          .authority-matrix-grid { grid-template-columns: 1fr; }
+          .authority-matrix-card { padding: 40px 25px; }
+          .matrix-card-title { font-size: 1.5rem; }
+          .matrix-card-desc { margin-bottom: 3rem; }
         }
       `}} />
     </section>

@@ -13,25 +13,7 @@ const AboutFounder: React.FC<FounderProps> = ({ name, role, summary }) => {
     <section className="dark-authority-executive" id="founder">
       <div className="container">
         <div className="authority-executive-grid">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-            className="authority-portrait-container"
-          >
-            <div className="authority-portrait-frame">
-              <div className="authority-initials">JC</div>
-              <div className="authority-meta-portrait">
-                <span className="authority-meta-role blush-gold-gradient">{role}</span>
-                <h3 className="authority-meta-name">{name}</h3>
-              </div>
-              <div className="authority-frame-lines">
-                <div className="line-h" />
-                <div className="line-v" />
-              </div>
-            </div>
-          </motion.div>
+
 
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
@@ -43,7 +25,9 @@ const AboutFounder: React.FC<FounderProps> = ({ name, role, summary }) => {
             <div className="authority-narrative-header">
               <Quote size={54} className="gold-icon-fade" />
               <div className="reveal-mask">
-                <h2 className="authority-editorial-heading reveal-text">Directing <br />Institutional Standard</h2>
+                <span className="authority-meta-role blush-gold-gradient" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '10px' }}>{role}</span>
+                <h2 className="authority-editorial-heading reveal-text" style={{ marginBottom: '1rem' }}>{name}</h2>
+                <h3 className="sub-heading-gold" style={{ fontSize: '1.5rem', color: 'var(--brand-blush-gold)', marginBottom: '3rem', fontFamily: 'var(--font-heading)' }}>Directing Institutional Standard</h3>
               </div>
             </div>
             
@@ -86,10 +70,29 @@ const AboutFounder: React.FC<FounderProps> = ({ name, role, summary }) => {
         }
 
         .authority-executive-grid {
-          display: grid;
-          grid-template-columns: 1fr 1.2fr;
-          gap: clamp(4rem, 12vw, 10rem);
+          display: flex;
+          justify-content: center;
           align-items: center;
+        }
+
+        .authority-narrative {
+          max-width: 900px;
+          text-align: center;
+        }
+
+        .authority-narrative-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .authority-pillar-matrix {
+          justify-items: center;
+        }
+
+        .authority-summary-text {
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .authority-portrait-frame {
@@ -195,8 +198,16 @@ const AboutFounder: React.FC<FounderProps> = ({ name, role, summary }) => {
         }
 
         @media (max-width: 1100px) {
-          .authority-executive-grid { grid-template-columns: 1fr; gap: 80px; }
-          .authority-portrait-frame { height: 550px; }
+          .authority-executive-grid { grid-template-columns: 1fr; gap: 60px; }
+        }
+
+        @media (max-width: 768px) {
+          .authority-editorial-heading { font-size: 2.2rem; margin-bottom: 2.5rem; }
+          .authority-summary-text { font-size: 1.1rem; margin-bottom: 4rem; }
+          .authority-pillar-card { padding: 30px 20px; gap: 20px; }
+          .p-num-gold { font-size: 1.2rem; }
+          .pillar-text strong { font-size: 1rem; }
+          .pillar-text p { font-size: 0.9rem; }
         }
       `}} />
     </section>
